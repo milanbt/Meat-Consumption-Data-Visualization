@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Meat-Consumption-Data-Visualization/static/css/main.d1b05096.chunk.css",
+    "main.js": "/Meat-Consumption-Data-Visualization/static/js/main.fd7a88e1.chunk.js",
+    "main.js.map": "/Meat-Consumption-Data-Visualization/static/js/main.fd7a88e1.chunk.js.map",
+    "runtime-main.js": "/Meat-Consumption-Data-Visualization/static/js/runtime-main.897c5ccd.js",
+    "runtime-main.js.map": "/Meat-Consumption-Data-Visualization/static/js/runtime-main.897c5ccd.js.map",
+    "static/css/2.5a2f7233.chunk.css": "/Meat-Consumption-Data-Visualization/static/css/2.5a2f7233.chunk.css",
+    "static/js/2.db86dc83.chunk.js": "/Meat-Consumption-Data-Visualization/static/js/2.db86dc83.chunk.js",
+    "static/js/2.db86dc83.chunk.js.map": "/Meat-Consumption-Data-Visualization/static/js/2.db86dc83.chunk.js.map",
+    "index.html": "/Meat-Consumption-Data-Visualization/index.html",
+    "precache-manifest.14255c26fd28ef2a9a9f3bf2f530b533.js": "/Meat-Consumption-Data-Visualization/precache-manifest.14255c26fd28ef2a9a9f3bf2f530b533.js",
+    "service-worker.js": "/Meat-Consumption-Data-Visualization/service-worker.js",
+    "static/css/2.5a2f7233.chunk.css.map": "/Meat-Consumption-Data-Visualization/static/css/2.5a2f7233.chunk.css.map",
+    "static/css/main.d1b05096.chunk.css.map": "/Meat-Consumption-Data-Visualization/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.db86dc83.chunk.js.LICENSE": "/Meat-Consumption-Data-Visualization/static/js/2.db86dc83.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.897c5ccd.js",
+    "static/css/2.5a2f7233.chunk.css",
+    "static/js/2.db86dc83.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.fd7a88e1.chunk.js"
+  ]
+}
