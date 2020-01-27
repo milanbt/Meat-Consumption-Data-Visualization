@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Meat-Consumption-Data-Visualization/precache-manifest.14255c26fd28ef2a9a9f3bf2f530b533.js"
+  "/Meat-Consumption-Data-Visualization/precache-manifest.547b44ebd180ff3eca866de70bf63a45.js"
 );
 
 self.addEventListener('message', (event) => {
