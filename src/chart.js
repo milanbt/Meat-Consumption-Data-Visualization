@@ -1,34 +1,11 @@
 import React from 'react';
-import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, LineSeries} from 'react-vis';
+import {XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, 
+    LineSeries, DiscreteColorLegend, Crosshair} from 'react-vis';
 
-/*class Chart extends React.Component {
-    render() {
-        return (
-            <XYPlot
-                xType="ordinal"
-                width={500}
-                height={500}
-                margin={{
-                    left: 70
-                }}>
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis />
-                <YAxis />
-                <LineSeries
-                    data={[{x:1, y:2},
-                            {x:2, y:4},
-                            {x:3, y:1}]}
-                    style={{stroke: 'blue', strokeWidth: 3}} 
-                    />
-            </XYPlot>
-        );
-    }
-}*/
 function hslToHex(h, s, l) {
     h /= 360;
-    s /= 100;
-    l /= 100;
+    s /= 255;
+    l /= 255;
     let r, g, b;
     if (s === 0) {
         r = g = b = l; // achromatic
@@ -55,44 +32,58 @@ function hslToHex(h, s, l) {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 const series = [];
+const invisiSeries = [];
 const seriesColor = [];
 const Chart = (props) => {
 
+    const [crossVals, setCrossVals] = React.useState([]);
     const dataArr = [];
+
     for (var i = 0; i < props.data.length; i++) {
         dataArr.push(props.data[i].map((d)=> {
             return {x: d.TIME, y: d.Value};
         }));
     }
-    let numSeries = dataArr.length;
 
     for (i = 0; i < dataArr.length; i++) {
         if (seriesColor.length <= i) {
-            seriesColor.push(hslToHex((((i%3) * numSeries/3)+(i/2)) * 255.0 / numSeries, 255, 128));
+            seriesColor.push(hslToHex( (i * 360 * 3/10) % 360, 255, 128));
         }
         series.push(<LineSeries
-        data={dataArr[i]}
-        style={{stroke: seriesColor[i], strokeWidth: 3}}/>);
+            data={dataArr[i]}
+            style={{stroke: seriesColor[i], strokeWidth: 3}}
+            onNearestX={v => {
+                setCrossVals([v]);
+            }}/>);
+        /*invisiSeries.push(<LineSeries
+            data={dataArr[i]}
+            style={{opacity: 0, strokeWidth: 10}}
+            onNearestX={v => {
+                setCrossVals([v]);
+            }}/>);
+            */
     }
-    
-    /*const dataArr = props.data.map((e)=> {
-        e.map((d)=>
-            return {x: d.TIME, 
-            y: d.Value};
-        )
-    });*/
-
     return (
-        <XYPlot
-            xType="ordinal"
-            width={1000}
-            height={500}>
-            <VerticalGridLines />
-            <HorizontalGridLines />
-            <XAxis title="Year" tickLabelAngle={35} tickPadding={24}/>
-            <YAxis title="KG per Capita" />
-                {series}
-        </XYPlot>
+        <div>
+            <XYPlot
+                xType="ordinal"
+                width={1000}
+                height={500}
+                onMouseLeave={() => {setCrossVals([])}}>
+                <VerticalGridLines />
+                <HorizontalGridLines />
+                <XAxis title="Year" tickLabelAngle={35} tickPadding={24}/>
+                <YAxis title="KG per Capita" />
+                    {series}
+                <Crosshair values={crossVals}>
+                </Crosshair>
+            </XYPlot>
+            <DiscreteColorLegend height={200} width={300} 
+                items={props.items.map(e => {
+                    return {title: e.LOCATION + ' ' + e.SUBJECT,
+                    color: seriesColor[e.INDEX],
+                    strokeWidth: 3}})} />
+        </div>
     );
 }
 export default Chart;

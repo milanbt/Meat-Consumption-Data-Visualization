@@ -33,6 +33,7 @@ function App() {
   const [location, setLocation] = React.useState('');
   const [subject, setSubject] = React.useState('');
   const [currentData, setCurrentData] = React.useState([]);
+  const [currentSeries, setCurrentSeries] = React.useState([]);
 
   // why doesn't React.useRef(null) work?
   const inputLabel = React.useRef('');
@@ -41,34 +42,40 @@ function App() {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
+  // handle location change in the selection box
   const handleLocationChange = event => {
     setLocation(event.target.value);
   };
+  // handle subject change in the selection box
   const handleSubjectChange = event => {
     setSubject(event.target.value);
   };
+  // add a series if not already present on graph
   const handleGraphAdd = event => {
-    setCurrentData([...currentData, meatJson.filter((r)=>{
-      return r.LOCATION === location;
-    }).filter((r)=>{
-      return r.SUBJECT === subject;
-    }).filter((r)=>{
-      return r.MEASURE === 'KG_CAP';
-    })]);
+    let newIndex = currentData.length;
+    // check if selected is already in the graph 
+    if (!currentSeries.some(e => {return e.LOCATION === location && e.SUBJECT === subject}) &&
+      location != '' && subject != ''){
+      setCurrentData([...currentData, meatJson.filter((r)=>{
+        return r.LOCATION === location;
+      }).filter((r)=>{
+        return r.SUBJECT === subject;
+      }).filter((r)=>{
+        return r.MEASURE === 'KG_CAP';
+      })]);
+      setCurrentSeries([...currentSeries, {LOCATION: location, SUBJECT: subject, INDEX: newIndex}]);
+    }
   };
-
-  // Read JSON file and populate selection menus
-  // TO DO
-  // ---
-
+  /*
   React.useEffect(() => {
 
   });
-
+  */ 
   return (
     <div className="App">
       <Container maxWidth="lg">
-        <Chart data={currentData}/>
+        <Chart data={currentData} 
+          items={currentSeries}/>
         <FormControl className={classes.formControl}>
           <InputLabel shrink id="location">
             Location
